@@ -13,7 +13,7 @@ driver = webdriver.Firefox(service=Service(GeckoDriverManager().install()), opti
 url = "https://www.deepl.com/translator"
 driver.get(url)
 
-def get_translation(text, langFrom, langTo):
+async def get_translation(text, langFrom, langTo):
     driver.get(f"https://www.deepl.com/translator#{langFrom}/{langTo}/")
     
     WebDriverWait(driver, 10).until(EC.presence_of_element_located((By.XPATH, "//div[@aria-labelledby='translation-source-heading']")))
@@ -28,8 +28,3 @@ def get_translation(text, langFrom, langTo):
     translation = target_element.text
 
     return translation
-
-print(get_translation("but daddy 🥺 👉 👈", "ru", "en"))
-
-# Close the browser window
-driver.quit()
